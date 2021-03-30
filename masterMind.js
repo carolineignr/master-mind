@@ -1,5 +1,5 @@
 
-const prompt = require('prompt-sync')({sigint: true});
+const prompt = require('prompt-sync')({ sigint: true });
 
 let guessesCounter = 0;
 let correctPositions = 0;
@@ -13,11 +13,11 @@ let patternGuess = [];
 const patternArr = [];
 
 function generatePattern() {
-    for(let i = 0; i < patternLength; i++) {
-        let randomNumber = generateNumber();
+    for (let i = 0; i < patternLength; i++) {
+        let randomNumber = generateRandomNumber();
 
         while (patternArr.find(num => num === randomNumber)) {
-            randomNumber = generateNumber();
+            randomNumber = generateRandomNumber();
         }
 
         patternArr.push(randomNumber);
@@ -25,7 +25,7 @@ function generatePattern() {
 }
 
 function valdiatePatternGuess(patternGuess) {
-    for(let i = 0; i < patternLength; i++) { 
+    for (let i = 0; i < patternLength; i++) {
         for (let j = 0; j < patternLength; j++) {
             if (patternArr[i] === patternGuess[j]) {
                 if (!correctGuesses.includes(patternGuess[j])) correctGuesses.push(patternGuess[j]);
@@ -56,7 +56,7 @@ function validateInput(value, func) {
     }
 }
 
-function generateNumber() {
+function generateRandomNumber() {
     return Math.floor(Math.random() * (7 - 1) + 1);
 }
 
@@ -89,22 +89,22 @@ function handleGuesses() {
             getPatternGuess();
         }
 
-       foundPattern = valdiatePatternGuess(patternGuess);
+        foundPattern = valdiatePatternGuess(patternGuess);
 
-       guessesCounter++;
+        guessesCounter++;
 
-       console.log(`Output: ${correctGuesses.length} correct, ${correctPositions} correct position.`)
+        console.log(`Output: ${correctGuesses.length} correct, ${correctPositions} correct position.`)
 
-       correctGuesses = [];
-       correctPositions = 0;
-       patternGuess = [];
+        correctGuesses = [];
+        correctPositions = 0;
+        patternGuess = [];
 
-       if (foundPattern) {
-        return console.log(`You broke the code in ${guessesCounter} guesses!`);
-       }
+        if (foundPattern) {
+            return console.log(`You broke the code in ${guessesCounter} guesses!`);
+        }
     }
-    
-    return console.log(`You were unable to break the code in ${guessesCounter} guesses. 
+
+    return console.log(`You were unable to break the code in ${guessesCounter} guesses.
         Code pattern is: ${patternArr.join('')}.`)
 }
 
